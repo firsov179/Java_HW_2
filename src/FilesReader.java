@@ -22,6 +22,7 @@ public class FilesReader {
             createGraphDFS(new File(root));
         } catch (FileNotFoundException e) {
             System.out.println("Проблемы с чтением файлов!");
+            return;
         }
         filesGraph.getList();
     }
