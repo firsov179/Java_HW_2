@@ -4,7 +4,7 @@ import java.util.HashMap;
 import static java.lang.Math.max;
 
 public class Graph {
-    private final ArrayList<Node> tree = new ArrayList<>();
+    private final ArrayList<Node> graph = new ArrayList<>();
     private final HashMap<String, Integer> nameToIndex = new HashMap<>();
     public ArrayList<String>[] result;
     private ArrayList<Integer> heights;
@@ -13,15 +13,15 @@ public class Graph {
         if (nameToIndex.containsKey(fileName)) {
             return nameToIndex.get(fileName);
         } else {
-            tree.add(new Node(fileName));
-            nameToIndex.put(fileName, tree.size() - 1);
-            return tree.size() - 1;
+            graph.add(new Node(fileName));
+            nameToIndex.put(fileName, graph.size() - 1);
+            return graph.size() - 1;
         }
     }
     public void add(String fileName, String parentName) {
         int indexPar = add(parentName);
         int indexCur = add(fileName);
-        tree.get(indexPar).children.add(indexCur);
+        graph.get(indexPar).children.add(indexCur);
     }
 
     public boolean getList() {
@@ -29,8 +29,8 @@ public class Graph {
             return false;
         }
 
-        heights = new ArrayList<>(tree.size());
-        for (int i = 0; i < tree.size(); ++i) {
+        heights = new ArrayList<>(graph.size());
+        for (int i = 0; i < graph.size(); ++i) {
             heights.add(-1);
         }
         for (int i = 0; i < heights.size(); ++i) {
@@ -48,15 +48,15 @@ public class Graph {
             result[i] = new ArrayList<>();
         }
         for (int i = 0; i < heights.size(); ++i) {
-            result[heights.get(i)].add(tree.get(i).getFileName());
+            result[heights.get(i)].add(graph.get(i).getFileName());
         }
         return true;
     }
 
     private void createHeights(int v, int height) {
         heights.set(v, height);
-        for (int i = 0; i < tree.get(v).children.size(); ++i) {
-            int u = tree.get(v).children.get(i);
+        for (int i = 0; i < graph.get(v).children.size(); ++i) {
+            int u = graph.get(v).children.get(i);
             if (heights.get(u) < height + 1) {
                 createHeights(u, height + 1);
             }
@@ -65,8 +65,8 @@ public class Graph {
 
     private boolean cycleSearchDFS(int v) {
         heights.set(v, 1);
-        for (int i = 0; i < tree.get(v).children.size(); ++i) {
-            int u = tree.get(v).children.get(i);
+        for (int i = 0; i < graph.get(v).children.size(); ++i) {
+            int u = graph.get(v).children.get(i);
             if (heights.get(u) == 0) {
                 if (cycleSearchDFS(u)) {
                     return true;
@@ -80,11 +80,11 @@ public class Graph {
     }
 
     private boolean cycleSearch() {
-        heights = new ArrayList<>(tree.size());
-        for (int i = 0; i < tree.size(); ++i) {
+        heights = new ArrayList<>(graph.size());
+        for (int i = 0; i < graph.size(); ++i) {
             heights.add(0);
         }
-        for (int i = 0; i < tree.size(); ++i) {
+        for (int i = 0; i < graph.size(); ++i) {
             if (cycleSearchDFS(i)) {
                 return true;
             }
