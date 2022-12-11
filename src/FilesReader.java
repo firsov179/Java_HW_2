@@ -16,15 +16,15 @@ public class FilesReader {
         }
     }
 
-    public void createGraph() {
+    public boolean createGraph() {
         filesGraph = new Graph();
         try {
             createGraphDFS(new File(root));
         } catch (FileNotFoundException e) {
             System.out.println("Проблемы с чтением файлов!");
-            return;
+            return false;
         }
-        filesGraph.getList();
+        return filesGraph.getList();
     }
 
     public void print() {
