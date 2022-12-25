@@ -30,6 +30,15 @@ require ‘<путь к другому файлу от корневого кат
 ```
 Одна строка - путь к корневой папке.
 ```
+### Пример файла
+```
+require C:\Users\Fedor\Desktop\test\2\a.txt
+some text
+require C:\Users\Fedor\Desktop\test\aa.txt
+foo bar
+require C:\Users\Fedor\Desktop\test\2\3\bb.txt
+end of sample file
+```
 ### Формат вывода
 Список выводится в следующем виде:
 ```
